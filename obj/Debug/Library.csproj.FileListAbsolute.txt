@@ -1,0 +1,16 @@
+D:\Programming\VS_Progects\C#\Library\bin\Debug\Library.exe.config
+D:\Programming\VS_Progects\C#\Library\bin\Debug\Library.exe
+D:\Programming\VS_Progects\C#\Library\bin\Debug\Library.pdb
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.AssemblyReference.cache
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.Form1.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.Properties.Resources.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.GenerateResource.cache
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.CoreCompileInputs.cache
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.exe
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.pdb
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormAccount.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormBooks.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.Book.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.SuggestedBindingRedirects.cache
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormLogin.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormRegistrate.resources
