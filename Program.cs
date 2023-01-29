@@ -18,10 +18,5 @@ namespace Library
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormLogin());
         }
-
-        static void Data()
-        {
-            
-        }
     }
 }

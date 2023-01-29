@@ -10,7 +10,16 @@ D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.exe
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.pdb
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormAccount.resources
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormBooks.resources
-D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.Book.resources
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.SuggestedBindingRedirects.cache
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormLogin.resources
 D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.FormRegistrate.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.BookViewer.resources
+D:\Programming\VS_Progects\C#\Library\bin\Debug\BouncyCastle.Crypto.dll
+D:\Programming\VS_Progects\C#\Library\bin\Debug\itextsharp.dll
+D:\Programming\VS_Progects\C#\Library\bin\Debug\itextsharp.xml
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.Forms.FormReader.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.csproj.CopyComplete
+D:\Programming\VS_Progects\C#\Library\bin\Debug\x64\pdfium.dll
+D:\Programming\VS_Progects\C#\Library\bin\Debug\PdfiumViewer.dll
+D:\Programming\VS_Progects\C#\Library\bin\Debug\PdfiumViewer.xml
+D:\Programming\VS_Progects\C#\Library\bin\Debug\nl\PdfiumViewer.resources.dll

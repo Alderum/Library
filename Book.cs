@@ -1,40 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Data.OleDb;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Library
 {
-    public partial class Book : Form
+    internal partial class Book : Database
     {
-        FormBooks formBooks;
-        public Book(FormBooks formBooks)
+        public Book(string title, string author, string imagePath, string textPath)
         {
-            InitializeComponent();
-
-            this.formBooks = formBooks;
+            //Initialise fields
+            Title = title;
+            Author = author;
+            ImagePath = imagePath;
+            TextPath = textPath;
+            ID = GetHash(title, author);
         }
-
-        public string BookName
+        public override void Add()
         {
-            get { return labelBookName.Text; }
-            set { labelBookName.Text = value; }
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    //command text
+                    string query = "INSERT INTO books ([id], [userId], [image], [title], [author], [textFile]) " +
+                        $"VALUES ({ID}, {User.ID}, '{ImagePath}', '{Title}', '{Author}', '{TextPath}')";
+
+                    OleDbCommand command = new OleDbCommand(query, connection);//create command
+                    OleDbDataReader reader = command.ExecuteReader();//execute command
+                }
+                catch (OleDbException e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+            }
         }
+    }
 
-        public string BookAuthor
+    internal partial class Book
+    {
+        int id;
+        string author, title, imagePath, textPath;
+        public int ID
         {
-            get { return labelBookAuthor.Text; }
-            set { labelBookAuthor.Text = value; }
+            get { return id; }
+            set { id = GetHash(Title, Author); }
         }
-
-        private void bookPicture_DoubleClick(object sender, EventArgs e)
+        public string Author
         {
-            formBooks.butDelVis = !formBooks.butDelVis;
+            get { return author; }
+            set 
+            {
+                if (value.Length < 50)
+                    author = value;
+            }
+        }
+        public string Title
+        {
+            get { return title; }
+            set
+            {
+                if (value.Length < 20)
+                    title = value;
+            }
+        }
+        public string ImagePath
+        {
+            get { return imagePath; }
+            set { imagePath =  value; }
+        }
+        public string TextPath
+        {
+            get { return textPath; }
+            set { textPath = value; }
         }
     }
 }
