@@ -20,7 +20,6 @@ namespace Library
             Name = name;
             Password = password;
             Image = Get(name, password).image;
-            MessageBox.Show(Image);
             Email = email;
             ABY = Get(name, password).aby;
             ABYRB = Get(name, password).abyrb;
