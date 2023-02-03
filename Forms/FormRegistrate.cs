@@ -23,7 +23,7 @@ namespace Library
         {
             Hide();
 
-            FormLogin formLogin = new FormLogin(ref user);
+            FormLogin formLogin = new FormLogin(user);
             formLogin.ShowDialog();
 
             Close();
@@ -34,9 +34,18 @@ namespace Library
             string name = userNameText.Text;
             string password = userPasswordText.Text;
             string e_mail = userE_mailText.Text;
-
-            user.Initialise(name, password, e_mail);
-            user.Add();
+            try
+            {
+                user.Initialise(name, password, e_mail);
+                user.Add();
+            }catch(DuplicateValueException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Hide();
+                FormLogin formLogin = new FormLogin(user);
+                formLogin.ShowDialog();
+                Close();
+            }
         }
     }
 }

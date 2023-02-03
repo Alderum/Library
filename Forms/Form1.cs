@@ -13,7 +13,7 @@ namespace Library
     internal partial class Form1 : Form
     {
         User user;
-        public Form1(ref User user)
+        public Form1(User user)
         {
             InitializeComponent();
             panelLogo.BackgroundImage = Image.FromFile(Database.assetsPath + "\\Logo.jpg");

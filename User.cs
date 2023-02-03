@@ -14,15 +14,39 @@ namespace Library
     internal partial class User : Database
     {
         //Initialise user values
+        public void Initialise(string name, string password)
+        {
+            if(CheckUser(name, password))
+            {
+                ID = Math.Abs(GetHash(name));
+                Name = name;
+                Password = password;
+                Image = Get(name, password).image;
+                Email = Get(name, password).email;
+                ABY = Get(name, password).aby;
+                ABYRB = Get(name, password).abyrb;
+            }
+            else
+            {
+                throw new DuplicateValueException("The user isn't registreted.");
+            }
+        }
         public void Initialise(string name, string password, string email)
         {
-            ID = Math.Abs(GetHash(name));
-            Name = name;
-            Password = password;
-            Image = Get(name, password).image;
-            Email = email;
-            ABY = Get(name, password).aby;
-            ABYRB = Get(name, password).abyrb;
+            if (!CheckUser(name, password))
+            {
+                ID = Math.Abs(GetHash(name));
+                Name = name;
+                Password = password;
+                Image = Get(name, password).image;
+                Email = email;
+                ABY = Get(name, password).aby;
+                ABYRB = Get(name, password).abyrb;
+            }
+            else
+            {
+                throw new DuplicateValueException("The user is registreted.");
+            }
         }
         //Add new account to database
         public override void Add()

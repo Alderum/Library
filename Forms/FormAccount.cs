@@ -31,9 +31,15 @@ namespace Library
             openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = "jpg files (*.jpg)|*.jpg";
             openFileDialog.ShowDialog();
-            pictureProfile.Load(openFileDialog.FileName);
-            
-            user.Update("image", openFileDialog.FileName);
+            try
+            {
+                pictureProfile.Load(openFileDialog.FileName);
+                user.Update("image", openFileDialog.FileName);
+            }
+            catch(InvalidOperationException ex)
+            {
+                pictureProfile.Load(User.Image);
+            }
         }
 
         private void passwordLable_Click(object sender, EventArgs e)

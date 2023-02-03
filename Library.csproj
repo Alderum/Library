@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="DuplicateValueException.cs" />
     <Compile Include="Forms\BookViewer.cs">
       <SubType>Form</SubType>
     </Compile>

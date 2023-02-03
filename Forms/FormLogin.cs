@@ -21,7 +21,7 @@ namespace Library
             user = new User();
         }
 
-        public FormLogin(ref User user) : this()
+        public FormLogin(User user) : this()
         {
             this.user = user;
         }
@@ -31,24 +31,20 @@ namespace Library
             string name = userNameText.Text;
             string password = userPasswordText.Text;
 
-            if (database.CheckUser(name, password))
+            try
             {
                 Hide();
 
-                user.Initialise(name, password, user.Get(name, password).email);
-                Form1 form1 = new Form1(ref user);
+                user.Initialise(name, password);
+                Form1 form1 = new Form1(user);
                 form1.ShowDialog();
 
                 Close();
-            } 
-            else
+            }catch(DuplicateValueException ex)
             {
-                Hide();
-
+                MessageBox.Show(ex.Message);
                 FormRegistrate formRegistrate = new FormRegistrate();
                 formRegistrate.ShowDialog();
-
-                Close();
             }
         }
 

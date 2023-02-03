@@ -15,7 +15,7 @@ namespace Library.Forms
         public FormReader(Book book)
         {
             InitializeComponent();
-            labelTitleAuthor.Text = string.Format(book.Title, " ", book.Author);
+            Text = string.Format(book.Title, " ", book.Author);
             var doc = PdfiumViewer.PdfDocument.Load(book.TextPath);
             pdfViewer.Document = doc;
         }
