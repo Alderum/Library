@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text.factories;
+using Library.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,9 @@ namespace Library
 {
     partial class FormBooks : Form
     {
+        BookViewer bookViewer;
+        Book book;
+        Database database = new Database();
         string imagePath, textPath;
 
         //Changea the visable of a buttonDelete
@@ -27,6 +31,7 @@ namespace Library
         {
             InitializeComponent();
             buttonDelete.Visible = butDelVis;
+            SearchBooks();
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -66,35 +71,7 @@ namespace Library
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            string title, author;
-
-            var fc = Application.OpenForms.Cast<Form>().ToList();
-            foreach(Form form in fc)
-            {
-                if(form != null && form.Name == "BookViewer")
-                {
-                    form.Close();
-                }
-            }
-
-            foreach (Control item in flp.Controls.OfType<Control>().ToList())
-            {
-                if (item != null && item.Name == "PanelForm")
-                    item.Dispose();
-            }
-
-            title = textTitleSearch.Text;
-            author = textAuthorSearch.Text;
-
-            Database database = new Database(this);
-            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
-                database.View(title, author);
-            else if (!string.IsNullOrEmpty(title))
-                database.ViewWithParametr("title", title);
-            else if (!string.IsNullOrEmpty(author))
-                database.ViewWithParametr("author", author);
-            else
-                database.View();
+            SearchBooks();
         }
 
         private void bookImage_Click(object sender, EventArgs e)
@@ -119,6 +96,61 @@ namespace Library
 
             textPath = dialog.FileName;
             bookFileText.Text = textPath;
+        }
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            database.DeleteBook(book);
+            buttonDelete.Visible = false;
+            buttonOpen.Visible = false;
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            FormReader formReader = new FormReader(book);
+            formReader.Show();
+            buttonDelete.Visible = false;
+            buttonOpen.Visible = false;
+        }
+        public void ButtonVisible(BookViewer bookViewer, Book book)
+        {
+            this.bookViewer = bookViewer;
+            this.book = book;
+
+            buttonDelete.Visible = true;
+            buttonOpen.Visible = true;
+        }
+
+        private void SearchBooks()
+        {
+            string title, author;
+
+            var fc = Application.OpenForms.Cast<Form>().ToList();
+            foreach (Form form in fc)
+            {
+                if (form != null && form.Name == "BookViewer")
+                {
+                    form.Close();
+                }
+            }
+
+            foreach (Control item in flp.Controls.OfType<Control>().ToList())
+            {
+                if (item != null && item.Name == "PanelForm")
+                    item.Dispose();
+            }
+
+            title = textTitleSearch.Text;
+            author = textAuthorSearch.Text;
+
+            Database database = new Database(this);
+            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
+                database.View(title, author);
+            else if (!string.IsNullOrEmpty(title))
+                database.ViewWithParametr("title", title);
+            else if (!string.IsNullOrEmpty(author))
+                database.ViewWithParametr("author", author);
+            else
+                database.View();
         }
     }
 }

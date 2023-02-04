@@ -33,18 +33,18 @@ namespace Library
 
             try
             {
-                Hide();
-
                 user.Initialise(name, password);
+                Hide();
                 Form1 form1 = new Form1(user);
                 form1.ShowDialog();
-
                 Close();
             }catch(DuplicateValueException ex)
             {
                 MessageBox.Show(ex.Message);
+                Hide();
                 FormRegistrate formRegistrate = new FormRegistrate();
                 formRegistrate.ShowDialog();
+                Close();
             }
         }
 

@@ -15,7 +15,8 @@ namespace Library
     partial class BookViewer : Form
     {
         Book book;
-        public BookViewer(Book book)
+        FormBooks formBooks;
+        public BookViewer(Book book, FormBooks formBooks)
         {
             InitializeComponent();
             labelBookName.Text = book.Title;
@@ -23,11 +24,12 @@ namespace Library
             bookPicture.Load(book.ImagePath);
             labelTextPath.Text = book.TextPath;
             this.book = book;
+            this.formBooks = formBooks;
         }
+
         private void bookPicture_Click(object sender, EventArgs e)
         {
-            FormReader formReader = new FormReader(book);
-            formReader.ShowDialog();
+            formBooks.ButtonVisible(this, book);
         }
     }
 }

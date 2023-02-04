@@ -39,6 +39,7 @@ namespace Library
             this.bookFileText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonCreate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -161,6 +162,7 @@ namespace Library
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonOpen);
             this.splitContainer1.Panel1.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel1.Controls.Add(this.buttonCreate);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
@@ -176,9 +178,22 @@ namespace Library
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 476);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 516);
             this.splitContainer1.SplitterDistance = 210;
             this.splitContainer1.TabIndex = 9;
+            // 
+            // buttonOpen
+            // 
+            this.buttonOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOpen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
+            this.buttonOpen.Location = new System.Drawing.Point(59, 460);
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(75, 37);
+            this.buttonOpen.TabIndex = 11;
+            this.buttonOpen.Text = "Open";
+            this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Visible = false;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonDelete
             // 
@@ -191,6 +206,7 @@ namespace Library
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Visible = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonCreate
             // 
@@ -211,7 +227,7 @@ namespace Library
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(586, 476);
+            this.panel1.Size = new System.Drawing.Size(586, 516);
             this.panel1.TabIndex = 0;
             // 
             // panelBooks
@@ -221,7 +237,7 @@ namespace Library
             this.panelBooks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBooks.Location = new System.Drawing.Point(0, 0);
             this.panelBooks.Name = "panelBooks";
-            this.panelBooks.Size = new System.Drawing.Size(586, 476);
+            this.panelBooks.Size = new System.Drawing.Size(586, 516);
             this.panelBooks.TabIndex = 1;
             // 
             // flp
@@ -232,7 +248,7 @@ namespace Library
             this.flp.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flp.Location = new System.Drawing.Point(0, 47);
             this.flp.Name = "flp";
-            this.flp.Size = new System.Drawing.Size(586, 429);
+            this.flp.Size = new System.Drawing.Size(586, 469);
             this.flp.TabIndex = 1;
             this.flp.WrapContents = false;
             // 
@@ -313,7 +329,7 @@ namespace Library
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
-            this.ClientSize = new System.Drawing.Size(800, 476);
+            this.ClientSize = new System.Drawing.Size(800, 516);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormBooks";
             this.Text = "FormBooks";
@@ -357,5 +373,6 @@ namespace Library
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textTitleSearch;
         private System.Windows.Forms.FlowLayoutPanel flp;
+        private System.Windows.Forms.Button buttonOpen;
     }
 }

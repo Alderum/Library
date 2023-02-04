@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    internal class DuplicateValueException : ApplicationException
+    public class DuplicateValueException : ApplicationException
     {
         public string Value { get; set; }
         

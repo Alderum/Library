@@ -61,7 +61,7 @@ namespace Library
                     author = reader["author"].ToString();
 
                     Book book = new Book(title, author, imagePath, textPath);
-                    formBooks.OpenChildForm(new BookViewer(book));
+                    formBooks.OpenChildForm(new BookViewer(book, formBooks));
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace Library
                     textPath = reader["textFile"].ToString();
 
                     Book book = new Book(title, author, imagePath, textPath);
-                    formBooks.OpenChildForm(new BookViewer(book));
+                    formBooks.OpenChildForm(new BookViewer(book, formBooks));
                 }
             }
         }
@@ -111,23 +111,23 @@ namespace Library
                     author = reader["author"].ToString();
 
                     Book book = new Book(title, author, imagePath, textPath);
-                    formBooks.OpenChildForm(new BookViewer(book));
+                    formBooks.OpenChildForm(new BookViewer(book, formBooks));
                 }
             }
         }
-        public string CheckConnection()
+        public void DeleteBook(Book book)
         {
-            using(OleDbConnection connection = new OleDbConnection(stringConnection))
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {
-                try
-                {
-                    connection.Open();
-                    return "All is good.";
-                }
-                catch (OleDbException ex)
-                {
-                    return ex.Message;
-                }
+                connection.Open();
+
+                //command text
+                string query = $"DELETE * FROM books WHERE author = '{book.Author}' AND title = '{book.Title}'";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
             }
         }
         public bool CheckUser(string name, string password)
@@ -154,21 +154,6 @@ namespace Library
                         return false;
                     }
                 }
-            }
-        }
-
-        public void UpdateBook(int userId, string image, string title, string author, string textFile)
-        {
-            using (OleDbConnection connection = new OleDbConnection(stringConnection))
-            {
-                connection.Open();
-
-                //command text
-                string query = "INSERT INTO books (userId, image, title, author, text) " +
-                    $"VALUES ({userId}, {image}, {title}, {author}, {textFile})";
-
-                OleDbCommand command = new OleDbCommand(query, connection);//create command
-                OleDbDataReader reader = command.ExecuteReader();//execute command
             }
         }
     }
