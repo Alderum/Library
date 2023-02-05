@@ -17,12 +17,13 @@ namespace Library
         {
             InitializeComponent();
             panelLogo.BackgroundImage = Image.FromFile(Database.assetsPath + "\\Logo.jpg");
+
             this.user = user;
         }
 
         private void buttonAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FormAccount(ref user));
+            OpenChildForm(new FormAccount(user, this));
         }
 
         private void buttonBooks_Click(object sender, EventArgs e)

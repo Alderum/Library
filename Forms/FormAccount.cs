@@ -13,10 +13,12 @@ namespace Library
     internal partial class FormAccount : Form
     {
         User user;
-        public FormAccount(ref User user)
+        Form1 mainForm;
+        public FormAccount(User user, Form1 form1)
         {
             InitializeComponent();
             this.user = user;
+            mainForm = form1;
             //Set profile datas
             pictureProfile.Load(User.Image);
             nameLable.Text = User.Name;
@@ -35,9 +37,11 @@ namespace Library
             {
                 pictureProfile.Load(openFileDialog.FileName);
                 user.Update("image", openFileDialog.FileName);
+                User.Image = openFileDialog.FileName;
             }
             catch(InvalidOperationException ex)
             {
+                MessageBox.Show(user.ToString());
                 pictureProfile.Load(User.Image);
             }
         }
@@ -57,6 +61,21 @@ namespace Library
         {
             User.ABYRB = abyrbTextBox.Text;
             user.Update("abyrb", abyrbTextBox.Text);
+        }
+
+        private void buttonDeleteAccount_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Accout deleting", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                user.Delete();
+                Hide();
+                mainForm.Hide();
+                FormLogin formLogin = new FormLogin();
+                formLogin.ShowDialog();
+                mainForm.Close();
+                Close();
+            }
         }
     }
 }

@@ -24,10 +24,6 @@ namespace Library
         }
 
         protected string stringConnection = String.Format("provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}\\MADatabase.accdb", assetsPath);
-
-        public virtual void Add() { }
-        public virtual void Update(string parametr, string value) { }
-        public virtual bool Check(string parametr, string value) { return false; }
         protected int GetHash(params string[] text)
         {
             int hash = default;
@@ -113,21 +109,6 @@ namespace Library
                     Book book = new Book(title, author, imagePath, textPath);
                     formBooks.OpenChildForm(new BookViewer(book, formBooks));
                 }
-            }
-        }
-        public void DeleteBook(Book book)
-        {
-            using (OleDbConnection connection = new OleDbConnection(stringConnection))
-            {
-                connection.Open();
-
-                //command text
-                string query = $"DELETE * FROM books WHERE author = '{book.Author}' AND title = '{book.Title}'";
-
-                //create command
-                OleDbCommand command = new OleDbCommand(query, connection);
-                //execute command
-                OleDbDataReader reader = command.ExecuteReader();
             }
         }
         public bool CheckUser(string name, string password)

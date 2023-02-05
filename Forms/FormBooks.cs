@@ -16,9 +16,7 @@ namespace Library
 {
     partial class FormBooks : Form
     {
-        BookViewer bookViewer;
         Book book;
-        Database database = new Database();
         string imagePath, textPath;
 
         //Changea the visable of a buttonDelete
@@ -99,7 +97,7 @@ namespace Library
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            database.DeleteBook(book);
+            book.Delete();
             buttonDelete.Visible = false;
             buttonOpen.Visible = false;
         }
@@ -111,9 +109,8 @@ namespace Library
             buttonDelete.Visible = false;
             buttonOpen.Visible = false;
         }
-        public void ButtonVisible(BookViewer bookViewer, Book book)
+        public void ButtonVisible(Book book)
         {
-            this.bookViewer = bookViewer;
             this.book = book;
 
             buttonDelete.Visible = true;

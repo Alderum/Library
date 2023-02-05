@@ -29,7 +29,7 @@ namespace Library
 
         private void bookPicture_Click(object sender, EventArgs e)
         {
-            formBooks.ButtonVisible(this, book);
+            formBooks.ButtonVisible(book);
         }
     }
 }

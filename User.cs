@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Library
 {
-    internal partial class User : Database
+    internal partial class User : Database, IDatabaseObject
     {
         //Initialise user values
         public void Initialise(string name, string password)
@@ -49,7 +49,7 @@ namespace Library
             }
         }
         //Add new account to database
-        public override void Add()
+        public void Add()
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {
@@ -79,7 +79,7 @@ namespace Library
             }
         }
         //Update values by its name
-        public override void Update(string parametr, string value)
+        public void Update(string parametr, string value)
         {
             if(value != null)
             {
@@ -103,8 +103,23 @@ namespace Library
                 }
             }
         }
+        public void Delete()
+        {
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                connection.Open();
+
+                //command text
+                string query = $"DELETE * FROM users WHERE [id] = {ID}";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
+            }
+        }
         //Check value by its name
-        public override bool Check(string parametr, string value)
+        public bool Check(string parametr, string value)
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {
@@ -163,6 +178,11 @@ namespace Library
             }
 
             return (id, name, password, image, email, aby, abyrb);
+        }
+
+        public override string ToString()
+        {
+            return $"[Id: {ID}, Name: {Name}, Password: {Password}, Email: {Email}, Image: {Image}, ABY: {ABY}, ABYRB: {ABYRB}]";
         }
     }
     internal partial class User

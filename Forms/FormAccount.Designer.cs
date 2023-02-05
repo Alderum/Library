@@ -32,6 +32,7 @@ namespace Library
             this.nameLable = new System.Windows.Forms.Label();
             this.passwordLable = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonDeleteAccount = new System.Windows.Forms.Button();
             this.emailLable = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureProfile = new System.Windows.Forms.PictureBox();
@@ -72,6 +73,7 @@ namespace Library
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonDeleteAccount);
             this.panel1.Controls.Add(this.emailLable);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.passwordLable);
@@ -81,6 +83,18 @@ namespace Library
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(168, 511);
             this.panel1.TabIndex = 4;
+            // 
+            // buttonDeleteAccount
+            // 
+            this.buttonDeleteAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDeleteAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(160)))), ((int)(((byte)(160)))));
+            this.buttonDeleteAccount.Location = new System.Drawing.Point(9, 336);
+            this.buttonDeleteAccount.Name = "buttonDeleteAccount";
+            this.buttonDeleteAccount.Size = new System.Drawing.Size(142, 37);
+            this.buttonDeleteAccount.TabIndex = 11;
+            this.buttonDeleteAccount.Text = "Delete Account";
+            this.buttonDeleteAccount.UseVisualStyleBackColor = true;
+            this.buttonDeleteAccount.Click += new System.EventHandler(this.buttonDeleteAccount_Click);
             // 
             // emailLable
             // 
@@ -208,5 +222,6 @@ namespace Library
         private System.Windows.Forms.TextBox abyrbTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureProfile;
+        private System.Windows.Forms.Button buttonDeleteAccount;
     }
 }

@@ -10,8 +10,16 @@ using System.Xml.Linq;
 
 namespace Library
 {
-    internal partial class Book : Database
+    internal partial class Book : Database, IDatabaseObject
     {
+        public Book(string title, string author)
+        {
+            Title = title;
+            Author = author;
+            ImagePath = Get(title, author).image;
+            ID = Get(title, author).id;
+            TextPath = Get(title, author).textFile;
+        }
         public Book(string title, string author, string imagePath, string textPath)
         {
             //Initialise fields
@@ -21,7 +29,7 @@ namespace Library
             TextPath = textPath;
             ID = GetHash(title, author);
         }
-        public override void Add()
+        public void Add()
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {
@@ -40,6 +48,79 @@ namespace Library
                     MessageBox.Show(e.ToString());
                 }
             }
+        }
+        public void Update(string parametr, string value)
+        {
+            if (value != null)
+            {
+                using (OleDbConnection connection = new OleDbConnection(stringConnection))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        //command text
+                        string query = $"UPDATE users SET [{parametr}] = '{value}'" +
+                            $"WHERE [id] = {ID}";
+
+                        OleDbCommand command = new OleDbCommand(query, connection);//create command
+                        OleDbDataReader reader = command.ExecuteReader();//execute command
+                    }
+                    catch (OleDbException e)
+                    {
+                        MessageBox.Show(e.ToString());
+                    }
+                }
+            }
+        }
+        public void Delete()
+        {
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                connection.Open();
+
+                //command text
+                string query = $"DELETE * FROM books WHERE [id] = {ID}";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
+            }
+        }
+
+        public (int id, string image, string textFile) Get(string title, string author)
+        {
+            //Value to return
+            int id = GetHash(title, author);
+            string image = "";
+            string textFile = "";
+
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                connection.Open();
+
+                //command text
+                string query = $"SELECT * FROM books WHERE [titile] = '{Title}' AND [author] = '{Author}'";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    image = reader["image"].ToString();
+                    textFile = reader["textFile"].ToString();
+                    id = (int)reader["id"];
+                }
+            }
+
+            return (id, image, textFile);
+        }
+
+        public override string ToString()
+        {
+            return $"[ID: {ID}, Title: {Title}, Author: {Author}, Image path: {ImagePath}, Text path: {TextPath}]";
         }
     }
 
