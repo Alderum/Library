@@ -76,15 +76,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
-    <Compile Include="DuplicateValueException.cs" />
+    <Compile Include=".cs files\Book.cs" />
+    <Compile Include=".cs files\BookComparer.cs" />
+    <Compile Include=".cs files\DuplicateValueException.cs" />
     <Compile Include="Forms\BookViewer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\BookViewer.Designer.cs">
       <DependentUpon>BookViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Database.cs" />
+    <Compile Include=".cs files\Database.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,7 +122,7 @@
     <Compile Include="Forms\FormRegistrate.Designer.cs">
       <DependentUpon>FormRegistrate.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDatabaseObject.cs" />
+    <Compile Include=".cs files\IDatabaseObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -129,7 +130,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="User.cs" />
+    <Compile Include=".cs files\User.cs" />
     <EmbeddedResource Include="Forms\BookViewer.resx">
       <DependentUpon>BookViewer.cs</DependentUpon>
     </EmbeddedResource>

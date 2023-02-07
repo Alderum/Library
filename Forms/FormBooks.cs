@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text.factories;
+using Library.cs_files;
 using Library.Forms;
 using System;
 using System.Collections.Generic;
@@ -39,15 +40,22 @@ namespace Library
 
             if (!string.IsNullOrEmpty(bookNameText.Text) || !string.IsNullOrEmpty(bookAuthorText.Text) || !string.IsNullOrEmpty(imagePath) || !string.IsNullOrEmpty(textPath))
             {
-                Book book = new Book(bookNameText.Text, bookAuthorText.Text, imagePath, textPath);
-                book.Add();
+                try
+                {
+                    Book book = new Book(bookNameText.Text, bookAuthorText.Text, imagePath, textPath);
+                    book.Add();
+                }
+                catch(DuplicateValueException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
                 MessageBox.Show("Enter all books fields (pick an image).");
             }
         }
-        public void OpenChildForm(BookViewer childForm)
+        private void OpenChildForm(BookViewer childForm)
         {
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
@@ -139,15 +147,24 @@ namespace Library
             title = textTitleSearch.Text;
             author = textAuthorSearch.Text;
 
-            Database database = new Database(this);
+            Book book = new Book();
+
             if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
-                database.View(title, author);
+                OpenChildForm(new BookViewer(new Book(title, author), this));
             else if (!string.IsNullOrEmpty(title))
-                database.ViewWithParametr("title", title);
+                ViewBooksList(book.GetBooksList("title", title));
             else if (!string.IsNullOrEmpty(author))
-                database.ViewWithParametr("author", author);
+                ViewBooksList(book.GetBooksList("author", author));
             else
-                database.View();
+                ViewBooksList(book.GetBooksList());
+        }
+
+        private void ViewBooksList(SortedSet<Book> booksList)
+        {
+            foreach(Book book in booksList)
+            {
+                OpenChildForm(new BookViewer(book, this));
+            }
         }
     }
 }

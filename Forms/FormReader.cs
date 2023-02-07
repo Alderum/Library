@@ -18,7 +18,6 @@ namespace Library.Forms
             Text = string.Format(book.Title, " ", book.Author);
             var doc = PdfiumViewer.PdfDocument.Load(book.TextPath);
             pdfViewer.Document = doc;
-            Icon = new Icon(Database.assetsPath + "\\ProgramIcon.ico");
         }
     }
 }

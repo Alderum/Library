@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Library.cs_files;
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ namespace Library
 {
     internal partial class Book : Database, IDatabaseObject
     {
+        SortedSet<Book> booksList = new SortedSet<Book>(new BookComparer());
+        public Book() { }
         public Book(string title, string author)
         {
             Title = title;
@@ -35,13 +39,20 @@ namespace Library
             {
                 try
                 {
-                    connection.Open();
-                    //command text
-                    string query = "INSERT INTO books ([id], [userId], [image], [title], [author], [textFile]) " +
-                        $"VALUES ({ID}, {User.ID}, '{ImagePath}', '{Title}', '{Author}', '{TextPath}')";
+                    if(CheckBook(Title, Author))
+                    {
+                        connection.Open();
+                        //command text
+                        string query = "INSERT INTO books ([id], [userId], [image], [title], [author], [textFile]) " +
+                            $"VALUES ({ID}, {User.ID}, '{ImagePath}', '{Title}', '{Author}', '{TextPath}')";
 
-                    OleDbCommand command = new OleDbCommand(query, connection);//create command
-                    OleDbDataReader reader = command.ExecuteReader();//execute command
+                        OleDbCommand command = new OleDbCommand(query, connection);//create command
+                        OleDbDataReader reader = command.ExecuteReader();//execute command
+                    }
+                    else
+                    {
+                        throw new DuplicateValueException("There is a book with the title and author.");
+                    }
                 }
                 catch (OleDbException e)
                 {
@@ -89,7 +100,7 @@ namespace Library
             }
         }
 
-        public (int id, string image, string textFile) Get(string title, string author)
+        private (int id, string image, string textFile) Get(string title, string author)
         {
             //Value to return
             int id = GetHash(title, author);
@@ -101,7 +112,7 @@ namespace Library
                 connection.Open();
 
                 //command text
-                string query = $"SELECT * FROM books WHERE [titile] = '{Title}' AND [author] = '{Author}'";
+                string query = $"SELECT * FROM books WHERE [titile] = '{title}' AND [author] = '{author}'";
 
                 //create command
                 OleDbCommand command = new OleDbCommand(query, connection);
@@ -116,6 +127,68 @@ namespace Library
             }
 
             return (id, image, textFile);
+        }
+        //Get full books list from database
+        public SortedSet<Book> GetBooksList()
+        {
+            booksList.Clear();
+
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                connection.Open();
+
+                //command text
+                string query = $"SELECT * FROM books";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string title, author, imagePath, textPath;
+                    imagePath = reader["image"].ToString();
+                    textPath = reader["textFile"].ToString();
+                    title = reader["title"].ToString();
+                    author = reader["author"].ToString();
+
+                    Book book = new Book(title, author, imagePath, textPath);
+                    booksList.Add(book);
+                }
+            }
+
+            return booksList;
+        }
+        //Get books list from database by parametr
+        public SortedSet<Book> GetBooksList(string parametr, string text)
+        {
+            booksList.Clear();
+
+            using (OleDbConnection connection = new OleDbConnection(stringConnection))
+            {
+                connection.Open();
+
+                //command text
+                string query = $"SELECT * FROM books WHERE {parametr} = '{text}'";
+
+                //create command
+                OleDbCommand command = new OleDbCommand(query, connection);
+                //execute command
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string title, author, imagePath, textPath;
+                    imagePath = reader["image"].ToString();
+                    textPath = reader["textFile"].ToString();
+                    title = reader["title"].ToString();
+                    author = reader["author"].ToString();
+
+                    Book book = new Book(title, author, imagePath, textPath);
+                    booksList.Add(book);
+                }
+            }
+
+            return booksList;
         }
 
         public override string ToString()
