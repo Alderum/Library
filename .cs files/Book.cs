@@ -24,22 +24,23 @@ namespace Library
             ID = Get(title, author).id;
             TextPath = Get(title, author).textFile;
         }
+        //Initialising constructor
         public Book(string title, string author, string imagePath, string textPath)
         {
-            //Initialise fields
             Title = title;
             Author = author;
             ImagePath = imagePath;
             TextPath = textPath;
             ID = GetHash(title, author);
         }
+        //Add book (only after initialising by non standart constuktor)
         public void Add()
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {
                 try
                 {
-                    if(CheckBook(Title, Author))
+                    if(!ThereIsTheBook(Title, Author))
                     {
                         connection.Open();
                         //command text

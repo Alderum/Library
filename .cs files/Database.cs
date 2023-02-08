@@ -16,15 +16,10 @@ namespace Library
 {
     class Database
     {
-        FormBooks formBooks;
         public readonly static string assetsPath = Environment.CurrentDirectory + "\\Assets\\";
-        public Database () { }
-        public Database (FormBooks formBooks)
-        {
-            this.formBooks = formBooks;
-        }
 
         protected string stringConnection = String.Format("provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}MADatabase.accdb", assetsPath);
+        //Get hash from string array
         protected int GetHash(params string[] text)
         {
             int hash = default;
@@ -36,6 +31,7 @@ namespace Library
             }
             return hash;
         }
+        //Chack user by name and password
         public bool CheckUser(string name, string password)
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
@@ -62,8 +58,8 @@ namespace Library
                 }
             }
         }
-
-        public bool CheckBook(string title, string author)
+        //Check book by title and author
+        public bool ThereIsTheBook(string title, string author)
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {

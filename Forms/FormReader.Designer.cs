@@ -52,6 +52,7 @@
             this.Name = "FormReader";
             this.Text = "Library";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormReader_FormClosing);
             this.ResumeLayout(false);
 
         }

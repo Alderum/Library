@@ -19,17 +19,10 @@ namespace Library
     {
         Book book;
         string imagePath, textPath;
-
-        //Changea the visable of a buttonDelete
-        public bool butDelVis
-        {
-            get { return buttonDelete.Visible; }
-            set { buttonDelete.Visible = value; }
-        }
+        
         public FormBooks()
         {
             InitializeComponent();
-            buttonDelete.Visible = butDelVis;
             SearchBooks();
         }
 
@@ -114,6 +107,9 @@ namespace Library
         {
             FormReader formReader = new FormReader(book);
             formReader.Show();
+            Hide();
+
+            formReader.OpenParentForm += Show;
             buttonDelete.Visible = false;
             buttonOpen.Visible = false;
         }
@@ -150,7 +146,11 @@ namespace Library
             Book book = new Book();
 
             if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
-                OpenChildForm(new BookViewer(new Book(title, author), this));
+            {
+                BookViewer bookViewer = new BookViewer(book);
+                bookViewer.SetButtonVisible += ButtonVisible;
+                OpenChildForm(bookViewer);
+            }
             else if (!string.IsNullOrEmpty(title))
                 ViewBooksList(book.GetBooksList("title", title));
             else if (!string.IsNullOrEmpty(author))
@@ -163,7 +163,9 @@ namespace Library
         {
             foreach(Book book in booksList)
             {
-                OpenChildForm(new BookViewer(book, this));
+                BookViewer bookViewer = new BookViewer(book);
+                bookViewer.SetButtonVisible += ButtonVisible;
+                OpenChildForm(bookViewer);
             }
         }
     }
