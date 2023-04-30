@@ -56,7 +56,7 @@ namespace Library
                 try
                 {
                     // Checks has been added name yet or no
-                    if (Check("name", name))
+                    if (CheckName("name", name))
                     {
                         MessageBox.Show("User has been added yet.");
                     }
@@ -119,7 +119,7 @@ namespace Library
             }
         }
         //Check value by its name
-        public bool Check(string parametr, string value)
+        public bool CheckName(string parametr, string value)
         {
             using (OleDbConnection connection = new OleDbConnection(stringConnection))
             {

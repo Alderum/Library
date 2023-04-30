@@ -1,6 +1,4 @@
-﻿using iTextSharp.text.pdf.parser;
-using Library.cs_files;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
@@ -9,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Library
 {

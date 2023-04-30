@@ -47,7 +47,7 @@ namespace Library
             // 
             // panelMenu
             // 
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(44)))), ((int)(((byte)(51)))));
+            this.panelMenu.BackColor = System.Drawing.Color.White;
             this.panelMenu.Controls.Add(this.panelButtons);
             this.panelMenu.Controls.Add(this.panelLogo);
             resources.ApplyResources(this.panelMenu, "panelMenu");
@@ -62,20 +62,30 @@ namespace Library
             // 
             // buttonBooks
             // 
+            this.buttonBooks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonBooks.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.buttonBooks, "buttonBooks");
+            this.buttonBooks.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.buttonBooks.FlatAppearance.BorderSize = 0;
+            this.buttonBooks.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonBooks.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
+            this.buttonBooks.ForeColor = System.Drawing.Color.Black;
             this.buttonBooks.Name = "buttonBooks";
-            this.buttonBooks.UseVisualStyleBackColor = true;
+            this.buttonBooks.UseVisualStyleBackColor = false;
             this.buttonBooks.Click += new System.EventHandler(this.buttonBooks_Click);
             // 
             // buttonAccount
             // 
+            this.buttonAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.buttonAccount, "buttonAccount");
+            this.buttonAccount.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.buttonAccount.FlatAppearance.BorderSize = 0;
+            this.buttonAccount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonAccount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
+            this.buttonAccount.ForeColor = System.Drawing.Color.Black;
             this.buttonAccount.Name = "buttonAccount";
-            this.buttonAccount.UseVisualStyleBackColor = true;
+            this.buttonAccount.UseVisualStyleBackColor = false;
             this.buttonAccount.Click += new System.EventHandler(this.buttonAccount_Click);
             // 
             // panelLogo
@@ -95,10 +105,12 @@ namespace Library
             // labelWalcome
             // 
             resources.ApplyResources(this.labelWalcome, "labelWalcome");
+            this.labelWalcome.ForeColor = System.Drawing.Color.Black;
             this.labelWalcome.Name = "labelWalcome";
             // 
             // panelMain
             // 
+            this.panelMain.BackColor = System.Drawing.Color.White;
             this.panelMain.Controls.Add(this.label1);
             this.panelMain.Controls.Add(this.labelWalcome);
             resources.ApplyResources(this.panelMain, "panelMain");
@@ -107,6 +119,7 @@ namespace Library
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Name = "label1";
             // 
             // Form1

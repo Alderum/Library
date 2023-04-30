@@ -3,15 +3,13 @@ using Library.cs_files;
 using Library.Forms;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Library
 {
@@ -24,6 +22,7 @@ namespace Library
         {
             InitializeComponent();
             SearchBooks();
+            Width = SystemInformation.PrimaryMonitorSize.Width;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -50,16 +49,17 @@ namespace Library
         }
         private void OpenChildForm(BookViewer childForm)
         {
+            childForm.Hide();
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Top;
 
-            Panel panel = new Panel();
-            //Panel
-            panel.BackColor = Color.FromArgb(48, 48, 52);
-            panel.Size = new Size(flp.Width - 30, 130);
-            panel.Name = "PanelForm";
-
+            Panel panel = new Panel()
+            {
+                BackColor = Color.FromArgb(48, 48, 52),
+                Size = new Size(flp.Width, 130),
+                Name = "PanelForm"
+            };
             flp.Controls.Add(panel);
             panel.Controls.Add(childForm);
             panel.Tag = childForm;
@@ -146,20 +146,16 @@ namespace Library
             Book book = new Book();
 
             if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
-            {
-                BookViewer bookViewer = new BookViewer(book);
-                bookViewer.SetButtonVisible += ButtonVisible;
-                OpenChildForm(bookViewer);
-            }
+                ViewBooksList(from b in book.GetBooksList() where book.Author == author && book.Title == title select b);
             else if (!string.IsNullOrEmpty(title))
-                ViewBooksList(book.GetBooksList("title", title));
+                ViewBooksList(from b in book.GetBooksList() where book.Title == title select b);
             else if (!string.IsNullOrEmpty(author))
-                ViewBooksList(book.GetBooksList("author", author));
+                ViewBooksList(from b in book.GetBooksList() where book.Author == author select b);
             else
                 ViewBooksList(book.GetBooksList());
         }
 
-        private void ViewBooksList(SortedSet<Book> booksList)
+        private void ViewBooksList(IEnumerable<Book> booksList)
         {
             foreach(Book book in booksList)
             {

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Library.AppController;
 
 namespace Library
 {
     public partial class FormRegistrate : Form
     {
-        User user = new User();
+        LogController controller = new LogController();
+
         public FormRegistrate()
         {
             InitializeComponent();
@@ -22,10 +24,8 @@ namespace Library
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Hide();
-
-            FormLogin formLogin = new FormLogin(user);
+            FormLogin formLogin = new FormLogin();
             formLogin.ShowDialog();
-
             Close();
         }
 
@@ -33,19 +33,9 @@ namespace Library
         {
             string name = userNameText.Text;
             string password = userPasswordText.Text;
-            string e_mail = userE_mailText.Text;
-            try
-            {
-                user.Initialise(name, password, e_mail);
-                user.Add();
-            }catch(DuplicateValueException ex)
-            {
-                MessageBox.Show(ex.Message);
-                Hide();
-                FormLogin formLogin = new FormLogin(user);
-                formLogin.ShowDialog();
-                Close();
-            }
+            string email = userE_mailText.Text;
+
+            controller.RegisterUser(this, name, password, email);
         }
     }
 }

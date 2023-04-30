@@ -14,7 +14,7 @@ namespace Library
 {
     internal partial class Book : Database, IDatabaseObject
     {
-        SortedSet<Book> booksList = new SortedSet<Book>(new BookComparer());
+        public SortedSet<Book> booksList = new SortedSet<Book>(new BookComparer());
         public Book() { }
         public Book(string title, string author)
         {
@@ -113,7 +113,7 @@ namespace Library
                 connection.Open();
 
                 //command text
-                string query = $"SELECT * FROM books WHERE [titile] = '{title}' AND [author] = '{author}'";
+                string query = $"SELECT * FROM books WHERE [titile] = '{title}' AND [author] = '{author}' AND [userId] = {User.ID}";
 
                 //create command
                 OleDbCommand command = new OleDbCommand(query, connection);
@@ -139,7 +139,7 @@ namespace Library
                 connection.Open();
 
                 //command text
-                string query = $"SELECT * FROM books";
+                string query = $"SELECT * FROM books WHERE [userId] = {User.ID}";
 
                 //create command
                 OleDbCommand command = new OleDbCommand(query, connection);
