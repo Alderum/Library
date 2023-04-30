@@ -145,7 +145,7 @@ namespace Library
             }
         }
         //Return values without initialised object
-        public (int id, string name, string password, string image, string email, string aby, string abyrb) Get(string name, string password)
+        public (int id, string name, string password, string image, string email, string aby, string abyrb, string userString) Get(string name, string password)
         {
             //Value to return
             int id = GetHash(name);
@@ -177,7 +177,7 @@ namespace Library
                 }
             }
 
-            return (id, name, password, image, email, aby, abyrb);
+            return (id, name, password, image, email, aby, abyrb, ToString());
         }
 
         public override string ToString()

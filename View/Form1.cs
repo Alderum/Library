@@ -7,46 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Library.AppController;
 
 namespace Library
 {
     internal partial class Form1 : Form
     {
-        User user;
-        public Form1(User user)
+        Controller controller = new Controller();
+        public Form1()
         {
             InitializeComponent();
             panelLogo.BackgroundImage = Image.FromFile(Database.assetsPath + "\\Logo.jpg");
-
-            this.user = user;
         }
 
         private void buttonAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FormAccount(user, this));
+            controller.OpenChildForm(new FormAccount(this), panelMain);
         }
 
         private void buttonBooks_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FormBooks());
-        }
-
-        Form activeForm = null;
-        private void OpenChildForm(Form childForm)
-        {
-            if (activeForm != null)
-                activeForm.Close();
-            activeForm = childForm;
-
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-
-            panelMain.Controls.Add(childForm);
-            panelMain.Tag = childForm;
-
-            childForm.BringToFront();
-            childForm.Show();
+            controller.OpenChildForm(new FormBooks(), panelMain);
         }
     }
 }

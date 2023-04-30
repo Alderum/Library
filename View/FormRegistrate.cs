@@ -13,7 +13,7 @@ namespace Library
 {
     public partial class FormRegistrate : Form
     {
-        LogController controller = new LogController();
+        Controller controller = new Controller();
 
         public FormRegistrate()
         {

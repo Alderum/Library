@@ -13,7 +13,7 @@ namespace Library
 {
     partial class FormLogin : Form
     {
-        LogController controller = new LogController();
+        Controller controller = new Controller();
 
         public FormLogin()
         {

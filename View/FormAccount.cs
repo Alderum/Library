@@ -7,24 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Library.AppController;
 
 namespace Library
 {
     internal partial class FormAccount : Form
     {
-        User user;
         Form1 mainForm;
-        public FormAccount(User user, Form1 form1)
+        Controller controller = new Controller();
+        public FormAccount(Form1 form1)
         {
             InitializeComponent();
-            this.user = user;
             mainForm = form1;
             //Set profile datas
             pictureProfile.Load(User.Image);
-            nameLable.Text = User.Name;
-            emailLable.Text = User.Email;
-            abyTextBox.Text = User.ABY;
-            abyrbTextBox.Text = User.ABYRB;
+            nameLable.Text = controller.UserGet().name;
+            emailLable.Text = controller.UserGet().email;
+            abyTextBox.Text = controller.UserGet().aby;
+            abyrbTextBox.Text = controller.UserGet().abyrb;
         }
 
         private void pictureProfile_Click(object sender, EventArgs e)
@@ -36,31 +36,29 @@ namespace Library
             try
             {
                 pictureProfile.Load(openFileDialog.FileName);
-                user.Update("image", openFileDialog.FileName);
+                controller.UserUpdate("image", openFileDialog.FileName);
                 User.Image = openFileDialog.FileName;
             }
             catch(InvalidOperationException ex)
             {
-                MessageBox.Show(user.ToString());
+                MessageBox.Show(controller.UserGet().userString);
                 pictureProfile.Load(User.Image);
             }
         }
 
         private void passwordLable_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(User.Password);
+            MessageBox.Show(controller.UserGet().password);
         }
 
         private void abyTextBox_Leave(object sender, EventArgs e)
         {
-            User.ABY = abyTextBox.Text;
-            user.Update("aby", abyTextBox.Text);
+            controller.UserUpdate("aby", abyTextBox.Text);
         }
 
         private void abyrbTextBox_Leave(object sender, EventArgs e)
         {
-            User.ABYRB = abyrbTextBox.Text;
-            user.Update("abyrb", abyrbTextBox.Text);
+            controller.UserUpdate("abyrb", abyrbTextBox.Text);
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -68,7 +66,7 @@ namespace Library
             DialogResult dialogResult = MessageBox.Show("Are you sure?", "Accout deleting", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                user.Delete();
+                controller.UserDelete();
                 Hide();
                 mainForm.Hide();
                 FormLogin formLogin = new FormLogin();

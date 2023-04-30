@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Library.AppController
 {
-    internal class LogController
+    internal class Controller
     {
         User user = new User();
         //Login user if 
@@ -17,7 +17,7 @@ namespace Library.AppController
             {
                 user.Initialise(name, password);
                 parentForm.Hide();
-                Form1 form1 = new Form1(user);
+                Form1 form1 = new Form1();
                 form1.ShowDialog();
                 parentForm.Close();
             }
@@ -48,6 +48,34 @@ namespace Library.AppController
                 formLogin.ShowDialog();
                 parentForm.Close();
             }
+        }
+
+        public void UserUpdate(string parametr, string value)
+        {
+            user.Update(parametr, value);
+        }
+
+        public (int id, string name, string password, string image, string email, string aby, string abyrb, string userString)  UserGet()
+        {
+            return (user.Get(User.Name, User.Password));
+        }
+
+        public void UserDelete()
+        {
+            user.Delete();
+        }
+
+        public void OpenChildForm(Form childForm, Panel panel)
+        {
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+
+            panel.Controls.Add(childForm);
+            panel.Tag = childForm;
+
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }
