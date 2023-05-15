@@ -23,3 +23,5 @@ D:\Programming\VS_Progects\C#\Library\bin\Debug\x64\pdfium.dll
 D:\Programming\VS_Progects\C#\Library\bin\Debug\PdfiumViewer.dll
 D:\Programming\VS_Progects\C#\Library\bin\Debug\PdfiumViewer.xml
 D:\Programming\VS_Progects\C#\Library\bin\Debug\nl\PdfiumViewer.resources.dll
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.View.FormLog.resources
+D:\Programming\VS_Progects\C#\Library\obj\Debug\Library.View.Main.FormMain.resources

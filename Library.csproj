@@ -64,10 +64,6 @@
     <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="LibraryObject, Version=1.0.0.1, Culture=neutral, PublicKeyToken=ccafadf58afd733f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LibraryObject\bin\Debug\LibraryObject.dll</HintPath>
-    </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
       <HintPath>packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
     </Reference>
@@ -86,51 +82,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\LogController.cs" />
+    <Compile Include="Controller\Controller.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\BookComparer.cs" />
     <Compile Include="Model\DuplicateValueException.cs" />
-    <Compile Include="View\BookViewer.cs">
+    <Compile Include="View\Main\BookViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\BookViewer.Designer.cs">
+    <Compile Include="View\Main\BookViewer.Designer.cs">
       <DependentUpon>BookViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Database.cs" />
-    <Compile Include="View\Form1.cs">
+    <Compile Include="View\Main\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form1.Designer.cs">
+    <Compile Include="View\Main\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormAccount.cs">
+    <Compile Include="View\Main\FormAccount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormAccount.Designer.cs">
+    <Compile Include="View\Main\FormAccount.Designer.cs">
       <DependentUpon>FormAccount.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormBooks.cs">
+    <Compile Include="View\Main\FormBooks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormBooks.Designer.cs">
+    <Compile Include="View\Main\FormBooks.Designer.cs">
       <DependentUpon>FormBooks.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormLogin.cs">
+    <Compile Include="View\FormLog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormLogin.Designer.cs">
+    <Compile Include="View\FormLog.Designer.cs">
+      <DependentUpon>FormLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginRegister\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LoginRegister\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormReader.cs">
+    <Compile Include="View\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormReader.Designer.cs">
+    <Compile Include="View\FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Main\FormReader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Main\FormReader.Designer.cs">
       <DependentUpon>FormReader.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormRegistrate.cs">
+    <Compile Include="View\LoginRegister\FormRegistrate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormRegistrate.Designer.cs">
+    <Compile Include="View\LoginRegister\FormRegistrate.Designer.cs">
       <DependentUpon>FormRegistrate.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\IDatabaseObject.cs" />
@@ -142,25 +150,31 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs" />
-    <EmbeddedResource Include="View\BookViewer.resx">
+    <EmbeddedResource Include="View\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Main\BookViewer.resx">
       <DependentUpon>BookViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Form1.resx">
+    <EmbeddedResource Include="View\Main\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormAccount.resx">
+    <EmbeddedResource Include="View\Main\FormAccount.resx">
       <DependentUpon>FormAccount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormBooks.resx">
+    <EmbeddedResource Include="View\Main\FormBooks.resx">
       <DependentUpon>FormBooks.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormLogin.resx">
+    <EmbeddedResource Include="View\FormLog.resx">
+      <DependentUpon>FormLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\LoginRegister\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormReader.resx">
+    <EmbeddedResource Include="View\Main\FormReader.resx">
       <DependentUpon>FormReader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormRegistrate.resx">
+    <EmbeddedResource Include="View\LoginRegister\FormRegistrate.resx">
       <DependentUpon>FormRegistrate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

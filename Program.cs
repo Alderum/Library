@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Library.View;
+using Library.AppController;
 
 namespace Library
 {
@@ -16,7 +18,8 @@ namespace Library
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+            Controller controller = new Controller();
+            Application.Run(controller.FormLog);
         }
     }
 }

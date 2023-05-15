@@ -8,25 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library.AppController;
+using Library.View;
 
 namespace Library
 {
-    public partial class FormRegistrate : Form
+    internal partial class FormRegistrate : Form
     {
-        Controller controller = new Controller();
+        FormLog formLog;
+        public Size size;
 
-        public FormRegistrate()
+        public FormRegistrate(FormLog formLog)
         {
             InitializeComponent();
+            this.formLog = formLog;
+            size = new Size(Width, Height);
             pictureBox.Image = Image.FromFile(Database.assetsPath + "\\LeftArrow.png");
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Hide();
-            FormLogin formLogin = new FormLogin();
-            formLogin.ShowDialog();
-            Close();
+            formLog.OpenFormLogin();
         }
 
         private void buttonRegistrate_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace Library
             string password = userPasswordText.Text;
             string email = userE_mailText.Text;
 
-            controller.RegisterUser(this, name, password, email);
+            formLog.controller.RegisterUser(this, name, password, email);
         }
     }
 }

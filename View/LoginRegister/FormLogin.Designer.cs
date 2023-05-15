@@ -78,6 +78,7 @@
             this.userPasswordText.Name = "userPasswordText";
             this.userPasswordText.Size = new System.Drawing.Size(540, 62);
             this.userPasswordText.TabIndex = 15;
+            this.userPasswordText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userPasswordText_KeyDown);
             // 
             // label2
             // 
@@ -100,6 +101,7 @@
             this.userNameText.Name = "userNameText";
             this.userNameText.Size = new System.Drawing.Size(540, 62);
             this.userNameText.TabIndex = 13;
+            this.userNameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userNameText_KeyDown);
             // 
             // label1
             // 
@@ -136,6 +138,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.userNameText);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormLogin";

@@ -130,7 +130,7 @@ namespace Library
             return (id, image, textFile);
         }
         //Get full books list from database
-        public SortedSet<Book> GetBooksList()
+        public SortedSet<Book> GetAllBooksList()
         {
             booksList.Clear();
 

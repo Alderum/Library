@@ -1,28 +1,24 @@
-﻿using iTextSharp.text.factories;
-using Library.cs_files;
-using Library.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using Library.AppController;
+using Library.Forms;
 using System.Linq;
 
 namespace Library
 {
     partial class FormBooks : Form
     {
+        Controller controller;
         Book book;
         string imagePath, textPath;
         
-        public FormBooks()
+        public FormBooks(Controller controller)
         {
             InitializeComponent();
+            this.controller = controller;
             SearchBooks();
-            Width = SystemInformation.PrimaryMonitorSize.Width;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
@@ -46,26 +42,6 @@ namespace Library
             {
                 MessageBox.Show("Enter all books fields (pick an image).");
             }
-        }
-        private void OpenChildForm(BookViewer childForm)
-        {
-            childForm.Hide();
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Top;
-
-            Panel panel = new Panel()
-            {
-                BackColor = Color.FromArgb(48, 48, 52),
-                Size = new Size(flp.Width, 130),
-                Name = "PanelForm"
-            };
-            flp.Controls.Add(panel);
-            panel.Controls.Add(childForm);
-            panel.Tag = childForm;
-
-            childForm.BringToFront();
-            childForm.Show();
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -109,6 +85,7 @@ namespace Library
             formReader.Show();
             Hide();
 
+            //Event from FormReader (invokes method Show)
             formReader.OpenParentForm += Show;
             buttonDelete.Visible = false;
             buttonOpen.Visible = false;
@@ -124,7 +101,7 @@ namespace Library
         private void SearchBooks()
         {
             string title, author;
-
+            //Removing all book forms
             var fc = Application.OpenForms.Cast<Form>().ToList();
             foreach (Form form in fc)
             {
@@ -133,7 +110,7 @@ namespace Library
                     form.Close();
                 }
             }
-
+            //Removing all book panels
             foreach (Control item in flp.Controls.OfType<Control>().ToList())
             {
                 if (item != null && item.Name == "PanelForm")
@@ -143,25 +120,34 @@ namespace Library
             title = textTitleSearch.Text;
             author = textAuthorSearch.Text;
 
-            Book book = new Book();
+            ViewBooksList(controller.GetNecessaryBooksList(title, author));
+        }
 
-            if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(author))
-                ViewBooksList(from b in book.GetBooksList() where book.Author == author && book.Title == title select b);
-            else if (!string.IsNullOrEmpty(title))
-                ViewBooksList(from b in book.GetBooksList() where book.Title == title select b);
-            else if (!string.IsNullOrEmpty(author))
-                ViewBooksList(from b in book.GetBooksList() where book.Author == author select b);
-            else
-                ViewBooksList(book.GetBooksList());
+        private void textTitleSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                textAuthorSearch.Focus();
+            }
         }
 
         private void ViewBooksList(IEnumerable<Book> booksList)
         {
-            foreach(Book book in booksList)
+            foreach (Book book in booksList)
             {
                 BookViewer bookViewer = new BookViewer(book);
                 bookViewer.SetButtonVisible += ButtonVisible;
-                OpenChildForm(bookViewer);
+
+                //Creating a panel to place book form in
+                Panel panel = new Panel()
+                {
+                    BackColor = Color.White,
+                    Size = new Size(flp.Width, 130),
+                    Name = "PanelForm"
+                };
+                flp.Controls.Add(panel);
+                //Place book form in
+                controller.OpenChildForm(bookViewer, panel);
             }
         }
     }

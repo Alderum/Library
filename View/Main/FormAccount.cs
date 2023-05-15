@@ -8,19 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library.AppController;
+using Library.View.Main;
 
 namespace Library
 {
     internal partial class FormAccount : Form
     {
-        Form1 mainForm;
-        Controller controller = new Controller();
-        public FormAccount(Form1 form1)
+        Controller controller;
+        public FormAccount(Controller controller)
         {
             InitializeComponent();
-            mainForm = form1;
+            this.controller = controller;
             //Set profile datas
-            pictureProfile.Load(User.Image);
+            pictureProfile.Load(controller.UserGet().image);
             nameLable.Text = controller.UserGet().name;
             emailLable.Text = controller.UserGet().email;
             abyTextBox.Text = controller.UserGet().aby;
@@ -68,10 +68,10 @@ namespace Library
             {
                 controller.UserDelete();
                 Hide();
-                mainForm.Hide();
-                FormLogin formLogin = new FormLogin();
+                controller.FormMain.Hide();
+                FormLogin formLogin = new FormLogin(controller.FormLog);
                 formLogin.ShowDialog();
-                mainForm.Close();
+                controller.FormMain.Close();
                 Close();
             }
         }
